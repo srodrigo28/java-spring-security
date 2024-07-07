@@ -1,0 +1,64 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+  <th:block th:fragment="title">Listagem de Clientes</th:block>
+
+  <th:block th:fragment="content">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Listagem de Clientes</div>
+            <div class="card-tools" sec:authorize="hasAuthority('ADMIN')">
+              <a
+                th:href="@{/clients/create}"
+                class="btn btn-sm btn-primary"
+                role="button"
+              >
+                Novo cliente
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <p th:if="${clients.empty}">Nenhuma cliente cadastrado.</p>
+
+            <table class="table" th:unless="${clients.empty}">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Telefone</th>
+                  <th scope="col" sec:authorize="hasAuthority('ADMIN')">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="client : ${clients}">
+                  <th scope="row" th:text="${client.id}">1</th>
+                  <td th:text="${client.name}">Cleyson Lima</td>
+                  <td th:text="${client.email}">cleyson@mail.com</td>
+                  <td th:text="${client.phone}">(11) 99999-9999</td>
+                  <td sec:authorize="hasAuthority('ADMIN')">
+                    <a
+                      th:href="@{/clients/edit/{id} (id=${client.id})}"
+                      class="btn btn-sm btn-primary"
+                      role="button"
+                    >
+                      Editar
+                    </a>
+                    <a
+                      th:href="@{/clients/delete/{id} (id=${client.id})}"
+                      class="btn btn-sm btn-danger"
+                      role="button"
+                      onclick="return confirm('Tem certeza que deseja excluir?');"
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</html>

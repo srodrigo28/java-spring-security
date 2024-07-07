@@ -1,0 +1,60 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+  <th:block th:fragment="title">Listagem de Cargos</th:block>
+
+  <th:block th:fragment="content">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Listagem de Cargos</div>
+            <div class="card-tools" sec:authorize="hasAuthority('ADMIN')">
+              <a
+                th:href="@{/positions/create}"
+                class="btn btn-sm btn-primary"
+                role="button"
+              >
+                Novo Cargo
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <p th:if="${positions.empty}">Nenhum cargo cadastrado.</p>
+
+            <table class="table" th:unless="${positions.empty}">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col" sec:authorize="hasAuthority('ADMIN')">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="position : ${positions}">
+                  <th scope="row" th:text="${position.id}">1</th>
+                  <td th:text="${position.name}">Cleyson Lima</td>
+                  <td sec:authorize="hasAuthority('ADMIN')">
+                    <a
+                      th:href="@{/positions/edit/{id} (id=${position.id})}"
+                      class="btn btn-sm btn-primary"
+                      role="button"
+                    >
+                      Editar
+                    </a>
+                    <a
+                      th:href="@{/positions/delete/{id} (id=${position.id})}"
+                      class="btn btn-sm btn-danger"
+                      role="button"
+                      onclick="return confirm('Tem certeza que deseja excluir?');"
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</html>

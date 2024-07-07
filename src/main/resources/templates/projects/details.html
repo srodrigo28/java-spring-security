@@ -1,0 +1,101 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+<th:block th:fragment="title">Detalhes do Projeto</th:block>
+
+<th:block th:fragment="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title" th:text="${project.name}">AvMakers Landing Page</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 order-2 order-md-1">
+              <div class="row">
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Orçamento</span>
+                      <span class="info-box-number text-center text-muted mb-0" th:text="${#numbers.formatCurrency(project.budget)}">R$ 2.300,00</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Gastos</span>
+                      <span class="info-box-number text-center text-muted mb-0" th:text="${#numbers.formatCurrency(project.cost)}">R$ 2.000,00</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Iníciado em</span>
+                      <span class="info-box-number text-center text-muted mb-0" th:text="${#temporals.format(project.startDate)}">7 de julho de 2018</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Finalizado em</span>
+                      <span class="info-box-number text-center text-muted mb-0" th:text="${project.endDate == null ? '-' : #temporals.format(project.endDate)}">7 de julho de 2018</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 order-1 order-md-2">
+              <h4>Detalhes</h4>
+              <p th:utext="${#strings.replace(#strings.escapeXml(project.description),'&#10;','&lt;br&gt;')}">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, voluptas quasi temporibus iusto modi facere repellat nihil excepturi. Quaerat quam esse voluptate laudantium necessitatibus mollitia illum dolores dolorum molestias odio explicabo velit quod, consequuntur in fugit culpa, molestiae aperiam enim, aut laborum maiores. Ullam voluptatem accusamus voluptatum suscipit hic necessitatibus!
+              </p>
+
+              <br>
+              
+              <h4>Cliente</h4>
+              <p th:text="${project.client}">Deveint Inc</p>
+              
+              <h4>Líder do Projeto</h4>
+              <p th:text="${project.manager}">Tony Chicken</p>
+            
+
+              <h4>Equipe</h4>
+              <ul class="list-unstyled">
+                <li th:each="member : ${project.team}">
+                  <span th:text="${member.name}">Functional-requirements.docx</span>
+                  - 
+                  <span th:text="${member.position}"></span>
+                </li>
+              </ul>
+              
+              <div class="text-center mt-5 mb-3" sec:authorize="hasAuthority('ADMIN')">
+                <a
+                  class="btn btn-sm btn-warning"
+                  th:href="@{/projects/edit/{id} (id=${project.id})}"
+                >
+                  <i class="fas fa-edit"></i>
+                  Editar
+                </a>
+                <a 
+                  href="#" class="btn btn-sm btn-danger"
+                  th:href="@{/projects/delete/{id} (id=${project.id})}"
+                  onclick="return confirm('Tem certeza que deseja excluir o projeto?');"
+                >
+                  <i class="fas fa-trash"></i>
+                  Excluir
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</th:block>
+
+</html>

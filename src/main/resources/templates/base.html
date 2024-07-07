@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:fragment="layout (title, content, styles, scripts)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>TWProjects - <th:block th:replace="${title}"></th:block></title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" th:href="@{/webjars/AdminLTE/3.2.0/plugins/fontawesome-free/css/all.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/webjars/AdminLTE/3.2.0/dist/css/adminlte.min.css}">
+
+  <!-- Custom styles -->
+  <th:block th:replace="${styles}"></th:block>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/_navbar :: navbar}"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="~{fragments/_sidebar :: sidebar}"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      
+      <!-- Main content -->
+      <div class="content">
+        <div class="container-fluid pt-3">
+          
+          <!-- Content -->
+          <th:block th:replace="${content}"></th:block>
+          <!-- /.content -->
+          
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer th:replace="~{fragments/_footer :: footer}"></footer>
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED SCRIPTS -->
+
+  <!-- jQuery -->
+  <script th:src="@{/webjars/AdminLTE/3.2.0/plugins/jquery/jquery.min.js}"></script>
+  <!-- Bootstrap 4 -->
+  <script th:src="@{/webjars/AdminLTE/3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- AdminLTE App -->
+  <script th:src="@{/webjars/AdminLTE/3.2.0/dist/js/adminlte.min.js}"></script>
+
+  <!-- Custom scripts -->
+  <th:block th:replace="${scripts}"></th:block>
+</body>
+
+</html>

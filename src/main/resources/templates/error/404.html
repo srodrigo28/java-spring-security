@@ -1,0 +1,18 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+
+<th:block th:fragment="title">Página Não Encontrada</th:block>
+
+<th:block th:fragment="content">
+  <div class="error-page">
+    <h1 class="headline text-warning">404</h1>
+    <div class="error-content">
+      <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! A página não foi encontrada.</h3>
+      <p>
+        Não foi possível encontrar a página que você estava procurando.
+        Enquanto isso, você pode <a th:href="@{/}">retornar a página inicial</a>.
+      </p>
+    </div>
+  </div>
+</th:block>
+
+</html>

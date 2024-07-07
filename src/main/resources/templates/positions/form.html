@@ -1,0 +1,32 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+
+<th:block th:fragment="title" th:text="${pageTitle}">Cadastro de Cargo</th:block>
+
+<th:block th:fragment="content">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title" th:text="${pageTitle}">Cadastro de Cargo</div>
+        </div>
+        <div class="card-body">
+          
+          <form method="post" th:object="${positionForm}">
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <div class="form-group">
+              <label for="name">Nome*</label>
+              <input type="text" th:field="*{name}" required class="form-control">
+            </div>
+      
+            <button class="btn btn-primary" type="submit">Salvar</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>  
+</th:block>
+
+</html>

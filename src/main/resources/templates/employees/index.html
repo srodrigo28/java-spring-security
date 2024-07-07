@@ -1,0 +1,75 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+  <th:block th:fragment="title">Listagem de Funcionários</th:block>
+
+  <th:block th:fragment="content">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Listagem de Funcionários</div>
+            <div class="card-tools" sec:authorize="hasAuthority('ADMIN')">
+              <a
+                th:href="@{/employees/create}"
+                class="btn btn-sm btn-primary"
+                role="button"
+              >
+                Novo funcionário
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <p th:if="${employees.empty}">Nenhum funcionário cadastrado.</p>
+
+            <table class="table" th:unless="${employees.empty}">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Telefone</th>
+                  <th scope="col">Cargo</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="employee : ${employees}">
+                  <th scope="row" th:text="${employee.id}">1</th>
+                  <td th:text="${employee.name}">Cleyson Lima</td>
+                  <td th:text="${employee.email}">cleyson@mail.com</td>
+                  <td th:text="${employee.phone}">(11) 99999-9999</td>
+                  <td th:text="${employee.position}">Desenvolvedor</td>
+                  <td>
+                    <a 
+                      th:href="@{/employees/{id} (id=${employee.id})}"
+                      class="btn btn-sm btn-secondary"
+                      role="button"
+                    >
+                      Detalhes
+                    </a>
+                    <a
+                      th:href="@{/employees/edit/{id} (id=${employee.id})}"
+                      class="btn btn-sm btn-primary"
+                      role="button"
+                      sec:authorize="hasAuthority('ADMIN')"
+                    >
+                      Editar
+                    </a>
+                    <a
+                      th:href="@{/employees/delete/{id} (id=${employee.id})}"
+                      class="btn btn-sm btn-danger"
+                      role="button"
+                      onclick="return confirm('Tem certeza que deseja excluir?');"
+                      sec:authorize="hasAuthority('ADMIN')"
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</html>

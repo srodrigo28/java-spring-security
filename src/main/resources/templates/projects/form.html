@@ -1,0 +1,100 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+  <th:block th:fragment="title" th:text="${pageTitle}">Listagem de Projetos</th:block>
+
+  <th:block th:fragment="content">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form method="POST" th:object="${projectForm}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" class="form-control" placeholder="App Android" th:field="*{name}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea class="form-control" rows="4" th:field="*{description}"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Cliente</label>
+                    <select th:field="*{client}" class="form-control">
+                      <option th:each="client : ${clients}" th:text="${client.name}" th:value="${client.id}"></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Líder do Projeto</label>
+                    <select th:field="*{manager}" class="form-control">
+                      <option th:each="manager : ${managers}" th:text="${manager.name}" th:value="${manager.id}"></option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="startDate">Iníado em</label>
+                    <input type="date" class="form-control" th:field="*{startDate}">
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="endDate">Finalizado em</label>
+                    <input type="date" class="form-control" th:field="*{endDate}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="budget">Orçamento</label>
+                    <input type="text" class="form-control" th:field="*{budget}">
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="cost">Gastos</label>
+                    <input type="text" class="form-control" th:field="*{cost}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label>Equipe</label>
+                    <select th:field="*{team}" multiple data-placeholder="Selecione a equipe" class="form-control">
+                      <option th:each="employee : ${team}" th:text="${employee.name + ' - ' + employee.position.name}" th:value="${employee.id}"></option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+            <!-- /.card-body -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</html>

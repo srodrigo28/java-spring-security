@@ -1,0 +1,79 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+  <th:block th:fragment="title">Listagem de Projetos</th:block>
+
+  <th:block th:fragment="content">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Listagem de Projetos</div>
+            <div class="card-tools" sec:authorize="hasAuthority('ADMIN')">
+              <a
+                th:href="@{/projects/create}"
+                class="btn btn-sm btn-primary"
+                role="button"
+              >
+                Novo projeto
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <p th:if="${projects.empty}">Nenhuma projeto cadastrado.</p>
+
+            <table class="table" th:unless="${projects.empty}">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Data de Início</th>
+                  <th scope="col">Data de Término</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Gerente</th>
+                  <th scope="col">Orçamento</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="project : ${projects}">
+                  <th scope="row" th:text="${project.id}">1</th>
+                  <td th:text="${project.name}">Cleyson Lima</td>
+                  <td th:text="${#temporals.format(project.startDate)}">10/10/2020</td>
+                  <td th:text="${project.endDate == null ? '-' : #temporals.format(project.endDate)}">10/10/2020</td>
+                  <td th:text="${project.client}">Cleyson Lima</td>
+                  <td th:text="${project.manager}">Cleyson Lima</td>
+                  <td th:text="${#numbers.formatCurrency(project.budget)}">R$ 10.000,00</td>
+                  <td>
+                    <a 
+                      th:href="@{/projects/{id} (id=${project.id})}"
+                      class="btn btn-sm btn-secondary"
+                      role="button"
+                    >
+                      Detalhes
+                    </a>
+                    <a
+                      th:href="@{/projects/edit/{id} (id=${project.id})}"
+                      class="btn btn-sm btn-primary"
+                      role="button"
+                      sec:authorize="hasAuthority('ADMIN')"
+                    >
+                      Editar
+                    </a>
+                    <a
+                      th:href="@{/projects/delete/{id} (id=${project.id})}"
+                      class="btn btn-sm btn-danger"
+                      role="button"
+                      onclick="return confirm('Tem certeza que deseja excluir?');"
+                      sec:authorize="hasAuthority('ADMIN')"
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</html>

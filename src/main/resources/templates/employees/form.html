@@ -1,0 +1,292 @@
+<html th:replace="~{base :: layout(~{::title}, ~{::content}, _, _)}">
+
+<th:block th:fragment="title" th:text="${pageTitle}">Cadastro de Clientes</th:block>
+
+<th:block th:fragment="content">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title" th:text="${pageTitle}">Cadastro de Clientes</div>
+        </div>
+        <div class="card-body">
+
+          <form method="post" th:object="${employeeForm}">
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <fieldset>
+              <legend>Dados Pessoais</legend>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name">Nome*</label>
+                    <input type="text" th:field="*{name}" required class="form-control">
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('name')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="cpf">CPF*</label>
+                    <input type="text" th:field="*{cpf}" required placeholder="000.000.000-00"
+                      pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" class="form-control">
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('cpf')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="email">E-mail*</label>
+                    <input type="email" th:field="*{email}" required class="form-control">
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('email')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="phone">Telefone*</label>
+                    <input type="text" th:field="*{phone}" required placeholder="(00) 00000-0000"
+                      pattern="^\(\d{2}\) \d{5}-\d{4}$" class="form-control">
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('phone')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="birthDate">Data de Nascimento*</label>
+                    <input type="date" th:field="*{birthDate}" required class="form-control">
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('birthDate')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="hireDate">Data de Contratação*</label>
+                    <input type="date" th:field="*{hireDate}" required class="form-control">
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('hireDate')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="resignationDate">Data de Demissão</label>
+                    <input type="date" th:field="*{resignationDate}" class="form-control">
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('resignationDate')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="positionId">Cargo*</label>
+                <select th:field="*{positionId}" class="form-control">
+                  <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}">Desenvolvedor</option>
+                </select>
+                <ul>
+                  <li 
+                    class="text-danger" 
+                    th:each="error : ${#fields.errors('positionId')}" 
+                    th:text="${error}">
+                  </li>
+                </ul>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Endereço</legend>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address.zipCode">CEP*</label>
+                    <input 
+                      type="text" 
+                      th:field="*{address.zipCode}" 
+                      required 
+                      class="form-control"
+                      placeholder="00000-000"
+                      pattern="^\d{5}-\d{3}$"
+                    >
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('address.zipCode')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address.state">Estado*</label>
+                    <input 
+                      type="text" 
+                      th:field="*{address.state}" 
+                      class="form-control" 
+                      placeholder="SP"
+                      pattern="^[A-Z]{2}$"
+                      required
+                    >
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('address.state')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address.city">Cidade*</label>
+                    <input 
+                      type="text" 
+                      th:field="*{address.city}" 
+                      class="form-control" 
+                      placeholder="São Paulo"
+                      required
+                    >
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('address.city')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address.neighborhood">Bairro*</label>
+                    <input 
+                      type="text" 
+                      th:field="*{address.neighborhood}" 
+                      class="form-control" 
+                      placeholder="Centro"
+                      required
+                    >
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('address.neighborhood')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address.street">Rua*</label>
+                    <input 
+                      type="text" 
+                      th:field="*{address.street}" 
+                      class="form-control" 
+                      placeholder="Rua 1"
+                      required
+                    >
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('address.street')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address.number">Número*</label>
+                    <input 
+                      type="text" 
+                      th:field="*{address.number}" 
+                      class="form-control" 
+                      placeholder="123"
+                      required
+                    >
+                    <ul>
+                      <li 
+                        class="text-danger" 
+                        th:each="error : ${#fields.errors('address.number')}" 
+                        th:text="${error}">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="address.complement">Complemento</label>
+                <input 
+                  type="text" 
+                  th:field="*{address.complement}" 
+                  class="form-control" 
+                >
+                <ul>
+                  <li 
+                    class="text-danger" 
+                    th:each="error : ${#fields.errors('address.complement')}" 
+                    th:text="${error}">
+                  </li>
+                </ul>
+              </div>
+            </fieldset>
+
+            <button class="btn btn-primary" type="submit">Salvar</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+</html>

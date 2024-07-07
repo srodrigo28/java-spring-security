@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "br.com.treinaweb.twprojects.mappers.provider",
+    "type": "br.com.treinaweb.twprojects.config.MapperProviders",
+    "description": "Implementação a ser utilizada para a camada mapper"
+  },
+  {
+    "name": "br.com.treinaweb.twprojects.auth.rememberMeToken",
+    "type": "java.lang.String",
+    "description": "Chave para o remember me"
+  },
+  {
+    "name": "br.com.treinaweb.twprojects.auth.rememberMeValiditySeconds",
+    "type": "java.lang.Integer",
+    "description": "Tempo de validade to token de remember me em segundos"
+  }
+]}

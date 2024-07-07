@@ -1,0 +1,126 @@
+<aside th:fragment="sidebar" class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a th:href="@{/}" class="brand-link">
+    <img th:src="@{/imgs/twlogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light">TWProjects</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- User info -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="info">
+        <a th:href="@{/auth/update-password}" sec:authentication="principal.employee.name"></a>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        
+        <!-- Clients Links -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-user"></i>
+            <p>
+              Clientes
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+              <a th:href="@{/clients/create}" class="nav-link">
+                <i class="fas fa-plus-circle"></i>
+                <p>Cadastrar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:href="@{/clients}" class="nav-link">
+                <i class="fas fa-table"></i>
+                <p>Listar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Employees Links -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-user-tie"></i>
+            <p>
+              Funcionários
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+              <a th:href="@{/employees/create}" class="nav-link">
+                <i class="fas fa-plus-circle"></i>
+                <p>Cadastrar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:href="@{/employees}" class="nav-link">
+                <i class="fas fa-table"></i>
+                <p>Listar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Positions Links -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-briefcase"></i>
+            <p>
+              Cargos
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+              <a th:href="@{/positions/create}" class="nav-link">
+                <i class="fas fa-plus-circle"></i>
+                <p>Cadastrar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:href="@{/positions}" class="nav-link">
+                <i class="fas fa-table"></i>
+                <p>Listar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Projects Links -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-project-diagram"></i>
+            <p>
+              Projetos
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+              <a th:href="@{/projects/create}" class="nav-link">
+                <i class="fas fa-plus-circle"></i>
+                <p>Cadastrar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:href="@{/projects}" class="nav-link">
+                <i class="fas fa-table"></i>
+                <p>Listar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
